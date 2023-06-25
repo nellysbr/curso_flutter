@@ -12,24 +12,41 @@ main() => runApp(const PerguntasApp());
 //transformando para statefull
 class PerguntaAppState extends State<PerguntasApp> {
   var perguntaSelecionada = 0;
+  var totalPoints = 0;
 
   final List<Map<String, Object>> _perguntas = [
     {
       'texto': 'Qual a sua cor favorita?',
-      'respostas': ['Amarelo', 'Azul', 'Vermelho']
+      'respostas': [
+        {'texto': 'Amarelo', 'nota': 10},
+        {'texto': 'Azul', 'nota': 2},
+        {'texto': 'Vermelho', 'nota': 5},
+      ]
     },
     {
       'texto': 'Qual o seu animal favorito?',
-      'respostas': ['Cachorro', 'Gato', 'Macaco']
+      'respostas': [
+        {'texto': 'Macaco', 'nota': 8},
+        {'texto': 'Gato', 'nota': 6},
+        {'texto': 'Cachorro', 'nota': 10},
+      ]
     },
   ];
 
-  void _responder() {
+  void _responder(int points) {
     setState(() {
       perguntaSelecionada++;
+      totalPoints += points;
     });
     // print(_perguntas[perguntaSelecionada].cast()['respostas'].toString());
     // Result(_perguntas[perguntaSelecionada].cast()['respostas']);
+  }
+
+  void _resetApp() {
+    setState(() {
+      perguntaSelecionada = 0;
+      totalPoints = 0;
+    });
   }
 
   bool get hasQuestion {
@@ -48,7 +65,7 @@ class PerguntaAppState extends State<PerguntasApp> {
                   perguntas: _perguntas,
                   responder: _responder,
                   perguntaSelecionada: perguntaSelecionada)
-              : const Result()),
+              : Result(_resetApp, totalPoints)),
     );
   }
 }
