@@ -1,5 +1,5 @@
 # curso_flutter
 
-Curso de flutter completo.
+Curso de flutter módulo de revisão básica.
 
 
